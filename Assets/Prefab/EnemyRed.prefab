@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5382427557524215190}
   - component: {fileID: 5569821119096330513}
   - component: {fileID: 7572555343621888999}
-  - component: {fileID: 2123340294473880349}
+  - component: {fileID: 8677766393623443900}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &2123340294473880349
+--- !u!114 &8677766393623443900
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,3 +149,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 10
+  _target: {fileID: 0}

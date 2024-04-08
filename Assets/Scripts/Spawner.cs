@@ -2,16 +2,33 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _enemyPrefab;
-    [SerializeField] private Transform _point;
-    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private EnemyMove[] _enemy;
 
-    private float _delayForSpawn = 2;
-    private float _spawnRate = 2;
+    [SerializeField] private Transform _point;
+    [SerializeField] private Transform _target;
+
+    private Transform[] _spawnPoints;
+    private Transform[] _targets;
+
+    private float _delayForSpawn = 1.0f;
+    private float _spawnRate = 2.0f;
 
     private void Awake()
     {
-        _spawnPoints = _point.GetComponentsInChildren<Transform>();
+        _spawnPoints = FillArray(_spawnPoints, _point);
+        _targets = FillArray(_targets, _target);
+    }
+
+    private Transform[] FillArray(Transform[] array, Transform point)
+    {
+        array = new Transform[point.childCount];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            array[i] = point.GetChild(i);
+        }
+
+        return array;
     }
 
     private void Start()
@@ -21,9 +38,11 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        int spawnRandom = Random.Range(0, _spawnPoints.Length);
+        int randomEnemy = Random.Range(0, _enemy.Length);
         Vector3 offset = Vector3.up;
 
-        Instantiate(_enemyPrefab, _spawnPoints[spawnRandom].transform.position + offset, Quaternion.identity);
+        var enemy = Instantiate(_enemy[randomEnemy], _spawnPoints[randomEnemy].transform.position + offset, Quaternion.identity);
+
+        enemy.SetTarget(_targets[randomEnemy]);
     }
 }
